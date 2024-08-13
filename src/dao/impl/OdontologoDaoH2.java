@@ -16,23 +16,23 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
     public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGO";
 
     @Override
-    public Odontologo guardar(Odontologo Odontologo) {
+    public Odontologo guardar(Odontologo odontologo) {
         Connection connection = null;
-        Odontologo OdontologoARetornar = null;
+        Odontologo odontologoARetornar = null;
         try {
             connection = H2Connection.getConnection();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(true);
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, Odontologo.getApellido());
-            preparedStatement.setString(2, Odontologo.getNombre());
+            preparedStatement.setString(1, odontologo.getApellido());
+            preparedStatement.setString(2, odontologo.getNombre());
             preparedStatement.executeUpdate();
             connection.commit();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 Integer id = resultSet.getInt(1);
-                OdontologoARetornar = new Odontologo(id, Odontologo.getApellido(), Odontologo.getNombre());
+                odontologoARetornar = new Odontologo(id, odontologo.getApellido(), odontologo.getNombre());
             }
-            logger.info("Odontologo persistido " + OdontologoARetornar);
+            logger.info("Odontologo persistido " + odontologoARetornar);
 
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -58,7 +58,7 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
                 e.printStackTrace();
             }
         }
-        return OdontologoARetornar;
+        return odontologoARetornar;
     }
 
     @Override
