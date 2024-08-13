@@ -11,9 +11,8 @@ import java.util.List;
 
 public class OdontologoDaoH2 implements IDao<Odontologo> {
     public static final Logger logger = Logger.getLogger(OdontologoDaoH2.class);
-    public static final String INSERT = "INSERT INTO ODONTOLOGO VALUES (DEFAULT,?,?)";
-    public static final String SELECT_ID = "SELECT * FROM ODONTOLOGO WHERE MATRICULA = ?";
-    public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGO";
+    public static final String INSERT = "INSERT INTO ODONTOLOGO VALUES (DEFAULT,?,?);";
+    public static final String SELECT_ALL = "SELECT * FROM ODONTOLOGO ;";
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
@@ -64,8 +63,7 @@ public class OdontologoDaoH2 implements IDao<Odontologo> {
     @Override
     public  List<Odontologo>  buscarTodos() {
         Connection connection = null;
-        List<Odontologo> listaOdontologos;
-        listaOdontologos= new ArrayList<>();
+        List<Odontologo> listaOdontologos = new ArrayList<>();
         try {
             connection = H2Connection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
